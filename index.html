@@ -660,6 +660,10 @@
           <input type="tel" id="revendeur-telephone" name="revendeur-telephone" required>
         </div>
       </div>
+      <div class="field">
+        <label for="revendeur-email">E-mail</label>
+        <input type="email" id="revendeur-email" name="revendeur-email" required>
+      </div>
       <button type="submit" class="form-submit">Envoyer la demande</button>
       <div id="revendeur-status"></div>
     </form>
@@ -747,6 +751,19 @@
         form.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = 'Envoyer la demande';
+
+        // Email de confirmation envoyé au client (n'impacte pas le message de succès ci-dessus)
+        const clientParams = {
+          to_email: params.email,
+          name: params.name,
+          quantite: params.quantite,
+          telephone: params.telephone,
+          message: params.message,
+          intro: "Nous avons bien reçu votre commande. Voici le récapitulatif ci-dessous. Nous allons vous contacter très prochainement par message ou par e-mail afin de procéder au paiement et à l'envoi de votre colis."
+        };
+        emailjs.send('service_34780ja', 'template_m87fddq', clientParams)
+          .catch(function(err){ console.error('Confirmation client non envoyée :', err); });
+
       }, function(error) {
         status.style.color = '#b03030';
         status.textContent = "Une erreur est survenue, merci de réessayer ou de nous contacter directement.";
@@ -770,7 +787,7 @@
     const params = {
       title: 'Demande revendeur — Maison Oud',
       name: document.getElementById('revendeur-nom').value + ' ' + document.getElementById('revendeur-prenom').value,
-      email: 'Non renseigné (voir téléphone)',
+      email: document.getElementById('revendeur-email').value,
       telephone: document.getElementById('revendeur-telephone').value,
       quantite: document.getElementById('revendeur-quantite').value + ' flacon(s)',
       message: 'Demande de partenariat revendeur'
@@ -783,6 +800,19 @@
         revendeurForm.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = 'Envoyer la demande';
+
+        // Email de confirmation envoyé au revendeur (n'impacte pas le message de succès ci-dessus)
+        const clientParams = {
+          to_email: params.email,
+          name: params.name,
+          quantite: params.quantite,
+          telephone: params.telephone,
+          message: params.message,
+          intro: "Nous avons bien reçu votre demande professionnelle. Voici le récapitulatif ci-dessous. Nous allons vous contacter très prochainement par message ou par e-mail afin de procéder au paiement et à l'envoi de votre colis."
+        };
+        emailjs.send('service_34780ja', 'template_m87fddq', clientParams)
+          .catch(function(err){ console.error('Confirmation revendeur non envoyée :', err); });
+
       }, function(error) {
         revendeurStatus.style.color = '#b03030';
         revendeurStatus.textContent = "Une erreur est survenue, merci de réessayer ou de nous contacter directement.";
