@@ -101,6 +101,11 @@
     font-weight:400;
     position:relative;
     padding-bottom:4px;
+    cursor:pointer;
+    background:none;
+    border:none;
+    font-family:'Jost', sans-serif;
+    color:inherit;
   }
   .nav-links a::after{
     content:'';
@@ -427,6 +432,65 @@
   .form-note{margin-top:16px; font-size:0.82rem; color:var(--encre-douce); text-align:center;}
   #form-status, #revendeur-status{margin-top:16px; font-size:0.88rem; text-align:center; min-height:1.2em;}
 
+  /* ---------- SUIVI DE COLIS (modal) ---------- */
+  .track-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(43,38,32,0.55);
+    backdrop-filter:blur(3px);
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .track-overlay.open{display:flex;}
+  .track-modal{
+    background:var(--ivoire);
+    max-width:460px;
+    width:100%;
+    padding:48px 40px;
+    position:relative;
+    box-shadow:var(--ombre);
+    border:1px solid var(--ligne);
+  }
+  .track-close{
+    position:absolute;
+    top:18px; right:18px;
+    width:32px; height:32px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    font-size:1.1rem;
+    color:var(--encre-douce);
+    background:none;
+    border:none;
+    font-family:'Jost', sans-serif;
+    transition:color 0.3s ease;
+  }
+  .track-close:hover{color:var(--or-fonce);}
+  .track-modal .eyebrow{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .track-modal .eyebrow .line{width:28px;height:1px;background:var(--or);}
+  .track-modal h3{font-size:1.9rem; margin-bottom:14px;}
+  .track-modal p.track-desc{color:var(--encre-douce); font-size:0.95rem; line-height:1.7; margin-bottom:30px;}
+  .track-form{display:grid; gap:24px;}
+  .track-status-box{
+    margin-top:22px;
+    border:1px solid var(--ligne);
+    background:var(--creme);
+    padding:20px 22px;
+    display:none;
+  }
+  .track-status-box.visible{display:block;}
+  .track-status-box .ts-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:0.85rem;
+  }
+  .track-status-box .ts-label{color:var(--encre-douce); text-transform:uppercase; letter-spacing:0.1em; font-size:0.68rem;}
+  .track-status-box .ts-value{font-family:'Cormorant Garamond', serif; font-size:1.15rem; color:var(--or-fonce); margin-top:4px;}
+  .track-launch-note{margin-top:18px; font-size:0.8rem; color:var(--encre-douce); line-height:1.6;}
+
   /* ---------- FOOTER ---------- */
   footer{
     padding:70px 6vw 40px;
@@ -437,7 +501,7 @@
   .footer-divider{display:flex; align-items:center; justify-content:center; gap:14px; margin:20px 0 26px;}
   .footer-divider .line{width:60px; height:1px; background:var(--ligne);}
   .footer-links{display:flex; justify-content:center; gap:32px; margin-bottom:26px; list-style:none;}
-  .footer-links a{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--encre-douce);}
+  .footer-links a{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--encre-douce); cursor:pointer; background:none; border:none; font-family:'Jost', sans-serif;}
   .footer-links a:hover{color:var(--or-fonce);}
   .footer-copy{font-size:0.78rem; color:var(--encre-douce); opacity:0.7;}
 
@@ -460,6 +524,7 @@
     .pyr-node{grid-template-rows:auto auto;}
     .pyr-spine{left:18px;}
     .form-row{grid-template-columns:1fr;}
+    .track-modal{padding:36px 26px;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -477,6 +542,7 @@
     <li><a href="#parfum">Le Parfum</a></li>
     <li><a href="#flacon">Le Flacon</a></li>
     <li><a href="#revendeurs">Revendeurs</a></li>
+    <li><a href="javascript:void(0)" id="navTrackLink">Suivi de colis</a></li>
   </ul>
   <a href="#commander" class="nav-cta">Commander</a>
 </nav>
@@ -667,8 +733,54 @@
       <button type="submit" class="form-submit">Envoyer la demande</button>
       <div id="revendeur-status"></div>
     </form>
+
+    <p style="margin-top:36px; font-size:0.85rem; color:var(--encre-douce);">
+      Vous avez déjà commandé ? <a href="javascript:void(0)" id="revendeurTrackLink" style="border-bottom:1px solid var(--or); padding-bottom:2px;">Suivez votre colis ici</a>.
+    </p>
   </div>
 </section>
+
+<!-- ---------- MODALE SUIVI DE COLIS ---------- -->
+<div class="track-overlay" id="trackOverlay">
+  <div class="track-modal">
+    <button type="button" class="track-close" id="trackClose" aria-label="Fermer">✕</button>
+    <div class="eyebrow"><span class="line"></span>Suivi</div>
+    <h3>Suivre mon colis</h3>
+    <p class="track-desc">Entrez votre numéro de suivi ainsi que le transporteur indiqué dans votre e-mail de confirmation d'expédition. Vous serez redirigé(e) vers le site du transporteur pour voir la position de votre colis en temps réel.</p>
+    <form class="track-form" id="trackForm">
+      <div class="field">
+        <label for="track-carrier">Transporteur</label>
+        <select id="track-carrier" name="track-carrier" required>
+          <option value="" disabled selected>Sélectionnez un transporteur</option>
+          <option value="colissimo">La Poste / Colissimo</option>
+          <option value="chronopost">Chronopost</option>
+          <option value="mondialrelay">Mondial Relay</option>
+          <option value="ups">UPS</option>
+          <option value="dhl">DHL</option>
+          <option value="gls">GLS</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="track-number">Numéro de suivi</label>
+        <input type="text" id="track-number" name="track-number" placeholder="Ex : 6A12345678901" required>
+      </div>
+      <button type="submit" class="form-submit">Voir le suivi en temps réel</button>
+    </form>
+    <div class="track-status-box" id="trackStatusBox">
+      <div class="ts-row">
+        <div>
+          <div class="ts-label">Transporteur</div>
+          <div class="ts-value" id="trackStatusCarrier">—</div>
+        </div>
+        <div>
+          <div class="ts-label">N° de suivi</div>
+          <div class="ts-value" id="trackStatusNumber">—</div>
+        </div>
+      </div>
+      <p class="track-launch-note">Nous ouvrons la page officielle de suivi du transporteur dans un nouvel onglet : c'est lui seul qui détient la position réelle et actualisée de votre colis.</p>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="footer-mark"><span class="fleur"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1c-1.2 2-1.6 4-1.2 6.2C9.5 5.8 7.8 5 6 5.2c.4 2 1.8 3.4 3.6 4-1.8.4-3.4 1.6-4.4 3.2 2 .4 4-.2 5.4-1.6-.2 1.8-1.2 3.4-2.8 4.4h3v3.8c0 .8.6 1.4 1.2 1.4s1.2-.6 1.2-1.4V15.2h3c-1.6-1-2.6-2.6-2.8-4.4 1.4 1.4 3.4 2 5.4 1.6-1-1.6-2.6-2.8-4.4-3.2 1.8-.6 3.2-2 3.6-4-1.8-.2-3.5.6-4.8 2C13.6 5 13.2 3 12 1z"/></svg></span> MAISON OUD PARFUMS</div>
@@ -679,6 +791,7 @@
     <li><a href="#flacon">Le Flacon</a></li>
     <li><a href="#commander">Commander</a></li>
     <li><a href="#revendeurs">Revendeurs</a></li>
+    <li><a href="javascript:void(0)" id="footerTrackLink">Suivi de colis</a></li>
   </ul>
   <p class="footer-copy">© 2026 Maison Oud Parfums. Tous droits réservés.</p>
 </footer>
@@ -820,6 +933,82 @@
         submitBtn.textContent = 'Envoyer la demande';
         console.error(error);
       });
+  });
+
+  // ---- Suivi de colis ----
+  const trackOverlay = document.getElementById('trackOverlay');
+  const trackClose = document.getElementById('trackClose');
+  const trackForm = document.getElementById('trackForm');
+  const trackCarrier = document.getElementById('track-carrier');
+  const trackNumber = document.getElementById('track-number');
+  const trackStatusBox = document.getElementById('trackStatusBox');
+  const trackStatusCarrier = document.getElementById('trackStatusCarrier');
+  const trackStatusNumber = document.getElementById('trackStatusNumber');
+
+  const carrierNames = {
+    colissimo: 'La Poste / Colissimo',
+    chronopost: 'Chronopost',
+    mondialrelay: 'Mondial Relay',
+    ups: 'UPS',
+    dhl: 'DHL',
+    gls: 'GLS'
+  };
+
+  function buildTrackingUrl(carrier, number) {
+    const n = encodeURIComponent(number.trim());
+    switch (carrier) {
+      case 'colissimo':
+        return 'https://www.laposte.fr/outils/suivre-vos-envois?code=' + n;
+      case 'chronopost':
+        return 'https://www.chronopost.fr/tracking-no-cms/suivi-page?listeNumerosLT=' + n;
+      case 'mondialrelay':
+        return 'https://www.mondialrelay.fr/suivi-de-colis/?numeroExpedition=' + n;
+      case 'ups':
+        return 'https://www.ups.com/track?loc=fr_FR&tracknum=' + n;
+      case 'dhl':
+        return 'https://www.dhl.com/fr-fr/home/tracking.html?tracking-id=' + n;
+      case 'gls':
+        return 'https://gls-group.eu/FR/fr/suivi-colis?match=' + n;
+      default:
+        return null;
+    }
+  }
+
+  function openTrackModal() {
+    trackOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeTrackModal() {
+    trackOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  ['navTrackLink', 'footerTrackLink', 'revendeurTrackLink'].forEach(function(id){
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', openTrackModal);
+  });
+
+  trackClose.addEventListener('click', closeTrackModal);
+  trackOverlay.addEventListener('click', function(e){
+    if (e.target === trackOverlay) closeTrackModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && trackOverlay.classList.contains('open')) closeTrackModal();
+  });
+
+  trackForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const carrier = trackCarrier.value;
+    const number = trackNumber.value.trim();
+    if (!carrier || !number) return;
+
+    const url = buildTrackingUrl(carrier, number);
+
+    trackStatusCarrier.textContent = carrierNames[carrier] || carrier;
+    trackStatusNumber.textContent = number;
+    trackStatusBox.classList.add('visible');
+
+    if (url) window.open(url, '_blank', 'noopener');
   });
 </script>
 </body>
