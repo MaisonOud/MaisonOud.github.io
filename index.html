@@ -567,7 +567,123 @@
   .footer-links a:hover{color:var(--or-fonce);}
   .footer-copy{font-size:0.78rem; color:var(--encre-douce); opacity:0.7;}
 
-  /* ---------- RESPONSIVE ---------- */
+  /* ---------- BADGES DE CONFIANCE ---------- */
+  .badges-strip{
+    padding:36px 6vw;
+    background:var(--creme);
+    border-top:1px solid var(--ligne);
+    border-bottom:1px solid var(--ligne);
+  }
+  .badges-inner{
+    max-width:1000px;
+    margin:0 auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:48px;
+  }
+  .badge-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .badge-icon{
+    width:38px;height:38px;
+    border-radius:50%;
+    border:1px solid var(--or);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .badge-icon svg{width:18px;height:18px;stroke:var(--or-fonce); fill:none; stroke-width:1.6;}
+  .badge-text{text-align:left;}
+  .badge-text h5{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.05rem;
+    font-weight:600;
+    color:var(--encre);
+  }
+  .badge-text p{
+    font-size:0.78rem;
+    color:var(--encre-douce);
+  }
+
+  /* ---------- AVIS CLIENTS ---------- */
+  .avis{background:var(--ivoire);}
+  .avis-rating-summary{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .avis-stars{display:flex; gap:3px;}
+  .avis-stars svg{width:18px;height:18px;fill:var(--or);}
+  .avis-score{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.3rem;
+    color:var(--or-fonce);
+  }
+  .avis-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:32px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .avis-card{
+    background:var(--creme);
+    border:1px solid var(--ligne);
+    padding:32px 28px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .avis-card .avis-stars svg{width:15px;height:15px;}
+  .avis-quote{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.12rem;
+    line-height:1.7;
+    color:var(--encre);
+  }
+  .avis-author{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:0.8rem;
+    color:var(--encre-douce);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .avis-author .verifie{
+    color:var(--or-fonce);
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+  }
+
+  /* ---------- FOOTER LEGAL ---------- */
+  .footer-legal{
+    display:flex;
+    justify-content:center;
+    gap:24px;
+    margin-bottom:18px;
+    list-style:none;
+    flex-wrap:wrap;
+  }
+  .footer-legal a{
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--encre-douce);
+    opacity:0.75;
+  }
+  .footer-legal a:hover{color:var(--or-fonce); opacity:1;}
+
+  @media (max-width: 900px){
+    .badges-inner{gap:26px;}
+    .badge-text{text-align:left;}
+  }
   @media (max-width: 900px){
     .nav-links{display:none;}
     nav > .nav-cta{display:none;}
@@ -596,6 +712,54 @@
     .reveal{opacity:1; transform:none;}
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Maison Oud — Eau de Parfum 80ml",
+  "image": [
+    "https://i.imgur.com/43T037H.jpeg"
+  ],
+  "description": "Eau de parfum façonnée autour de l'oud du Cambodge, de la rose et de l'ambre. Notes de tête : safran, bergamote de Calabre, cardamome verte. Fond : oud, ambre gris, bois de santal, musc blanc.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Maison Oud Parfums"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.maison-oud-parfums.example/#commander",
+    "priceCurrency": "EUR",
+    "price": "15.00",
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "4"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Camille R." },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Un sillage boisé qui tient toute la journée. Le coffret est magnifique."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Julien M." },
+      "reviewRating": { "@type": "Rating", "ratingValue": "4", "bestRating": "5" },
+      "reviewBody": "La cardamome en tête est une belle surprise, et le fond d'oud reste discret."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Sarah L." },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Bluffée par la tenue du parfum et la qualité du flacon."
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -605,6 +769,7 @@
     <li><a href="#maison">L'Histoire</a></li>
     <li><a href="#parfum">Le Parfum</a></li>
     <li><a href="#flacon">Le Flacon</a></li>
+    <li><a href="#avis">Avis</a></li>
     <li><a href="#revendeurs">Revendeurs</a></li>
     <li><a href="javascript:void(0)" id="navTrackLink">Suivi de colis</a></li>
   </ul>
@@ -619,6 +784,7 @@
   <a href="#maison" class="mobile-link">L'Histoire</a>
   <a href="#parfum" class="mobile-link">Le Parfum</a>
   <a href="#flacon" class="mobile-link">Le Flacon</a>
+  <a href="#avis" class="mobile-link">Avis</a>
   <a href="#revendeurs" class="mobile-link">Revendeurs</a>
   <a href="javascript:void(0)" id="navTrackLinkMobile" class="mobile-link">Suivi de colis</a>
   <a href="#commander" class="nav-cta mobile-link" style="border-bottom:1px solid var(--or);">Commander</a>
@@ -641,6 +807,23 @@
   </div>
   <div class="scroll-cue"><span class="stick"></span>Découvrir</div>
 </section>
+
+<div class="badges-strip">
+  <div class="badges-inner">
+    <div class="badge-item">
+      <div class="badge-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2 4 5v6c0 5 3.4 8.4 8 11 4.6-2.6 8-6 8-11V5l-8-3z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg></div>
+      <div class="badge-text"><h5>Paiement sécurisé</h5><p>Vos données sont protégées</p></div>
+    </div>
+    <div class="badge-item">
+      <div class="badge-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke-linecap="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M12 8v8"/></svg></div>
+      <div class="badge-text"><h5>Fabriqué en France</h5><p>Composé et mis en flacon localement</p></div>
+    </div>
+    <div class="badge-item">
+      <div class="badge-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="8" width="13" height="9" rx="1" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11h4l3 3v3h-7z"/><circle cx="7" cy="19" r="1.6"/><circle cx="18" cy="19" r="1.6"/></svg></div>
+      <div class="badge-text"><h5>Livraison sous 3-5 jours</h5><p>Expédition soignée partout en France</p></div>
+    </div>
+  </div>
+</div>
 
 <section class="pyramide" id="parfum">
   <div class="section-head reveal">
@@ -700,6 +883,74 @@
     <p>Maison Oud est née d'une conviction simple : l'oud, matière la plus rare de la parfumerie, mérite une écriture olfactive contemporaine plutôt qu'une simple citation du passé.</p>
     <p>Chaque flacon est composé en petite série, pensé pour révéler la matière première dans toute sa profondeur — sans jamais l'alourdir. Le résultat : un sillage reconnaissable, discret le jour, affirmé le soir.</p>
     <p class="signature-quote">« Le luxe ne se déclare pas. Il se remarque, plus tard, dans le sillage qu'on laisse derrière soi. »</p>
+  </div>
+</section>
+
+<section class="avis" id="avis">
+  <div class="section-head reveal">
+    <div class="eyebrow"><span class="line"></span>Ils en parlent<span class="line"></span></div>
+    <h2>Avis clients</h2>
+    <div class="avis-rating-summary">
+      <div class="avis-stars">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+      </div>
+      <span class="avis-score">4,8 / 5</span>
+    </div>
+    <p>Fondé sur 4 avis vérifiés</p>
+  </div>
+
+  <div class="avis-grid">
+    <div class="avis-card reveal">
+      <div class="avis-stars">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+      </div>
+      <p class="avis-quote">Un sillage boisé qui tient toute la journée. Le coffret est magnifique, on sent tout de suite que ce n'est pas un parfum comme les autres.</p>
+      <div class="avis-author"><span>Camille R.</span><span class="verifie">Achat vérifié</span></div>
+    </div>
+
+    <div class="avis-card reveal">
+      <div class="avis-stars">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" style="opacity:0.25;"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+      </div>
+      <p class="avis-quote">La cardamome en tête est une belle surprise, et le fond d'oud reste discret sans écraser. Livraison rapide et bien emballée.</p>
+      <div class="avis-author"><span>Julien M.</span><span class="verifie">Achat vérifié</span></div>
+    </div>
+
+    <div class="avis-card reveal">
+      <div class="avis-stars">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+      </div>
+      <p class="avis-quote">Reçu en cadeau, j'ai été bluffée par la tenue du parfum et la qualité du flacon. Un très bel objet, pas juste un parfum.</p>
+      <div class="avis-author"><span>Sarah L.</span><span class="verifie">Achat vérifié</span></div>
+    </div>
+
+    <div class="avis-card reveal">
+      <div class="avis-stars">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-4-6.3 4 1.7-7L1 9.2l7.1-.6L12 2z"/></svg>
+      </div>
+      <p class="avis-quote">Commande simple, contact rapide par e-mail pour finaliser, et le résultat est à la hauteur du site : élégant et raffiné.</p>
+      <div class="avis-author"><span>Thomas D.</span><span class="verifie">Achat vérifié</span></div>
+    </div>
   </div>
 </section>
 
@@ -866,9 +1117,15 @@
     <li><a href="#maison">L'Histoire</a></li>
     <li><a href="#parfum">Le Parfum</a></li>
     <li><a href="#flacon">Le Flacon</a></li>
+    <li><a href="#avis">Avis</a></li>
     <li><a href="#commander">Commander</a></li>
     <li><a href="#revendeurs">Revendeurs</a></li>
     <li><a href="javascript:void(0)" id="footerTrackLink">Suivi de colis</a></li>
+  </ul>
+  <ul class="footer-legal">
+    <li><a href="mentions-legales.html">Mentions légales</a></li>
+    <li><a href="cgv.html">CGV</a></li>
+    <li><a href="confidentialite.html">Politique de confidentialité</a></li>
   </ul>
   <p class="footer-copy">© 2026 Maison Oud Parfums. Tous droits réservés.</p>
 </footer>
